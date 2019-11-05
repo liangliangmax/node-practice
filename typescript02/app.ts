@@ -4,6 +4,8 @@ import {useKoaServer} from "routing-controllers";
 
 import {port} from "./config/port";
 
+const UserController = require("./controller/UserController");
+
 const bodyParser = require( "koa-bodyparser");
 
 const logger = require('koa-logger')
@@ -23,7 +25,8 @@ app
         options: {settings: {views: path.join(__dirname, 'views')}},
         map: {'ejs': 'ejs'},
         extension: 'ejs'
-    }))
+    }));
+
 
 app.use(async (ctx:any, next:any) => {
     const start:any = new Date()
