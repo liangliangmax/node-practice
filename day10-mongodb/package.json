@@ -1,0 +1,17 @@
+{
+  "name": "day10-mongodb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "assert": "^2.0.0",
+    "koa": "^2.11.0",
+    "koa-router": "^7.4.0",
+    "mongodb": "^3.3.3"
+  }
+}

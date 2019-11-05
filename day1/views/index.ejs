@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+  </head>
+  <body>
+  <% if(!logined){ %>
+    <form action="/login" method="post">
+      username：<input type="text" name="username"/>
+      password：<input type="text" name="password"/>
+      security：<input type="text" name="vnum"/> <img src="/refresh" />
+
+      <input type="submit" value="login"/>
+    </form>
+
+
+
+  <%} %>
+
+  <% if(logined){ %>
+    <form action="/logout" method="get">
+
+      <input type="submit" value="logout"/>
+    </form>
+  <div>
+    <form action="/add" method="post">
+      标题：<input type="text" name="name"/>
+      内容：<input type="text" name="content"/>
+
+      <input type="submit" value="add"/>
+    </form>
+
+  </div>
+
+  <div>
+    <form action="/update" method="post" id="form2">
+      标题：<input type="text" name="name"/>
+      内容：<input type="text" name="content"/>
+      <input type="hidden" name="index"/>
+
+      <input type="submit" value="edit"/>
+    </form>
+
+  </div>
+
+  <%} %>
+
+  <ul>
+    <% list.forEach(function (article,index) { %>
+    <p>
+      <span><%= article.name%></span>
+      <span><%= article.content%></span>
+      <span><a href="/del?index=<%= index %>">删除</a> <a href="#" onclick="edit(<%= index%>)">更改</a></span>
+    </p>
+
+    <% })%>
+
+
+  </ul>
+
+
+  </body>
+
+<script>
+  function edit(index) {
+
+    $.get('./get/'+index,function (result) {
+      $("#form2 input")[0].value = result.name;
+      $("#form2 input")[1].value = result.content;
+      $("#form2 input")[2].value = index;
+
+    });
+  }
+  
+  
+  function update() {
+    
+  }
+
+</script>
+</html>
