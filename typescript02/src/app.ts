@@ -20,8 +20,8 @@ let app = new Koa();
 app
     .use(bodyParser())
     .use(logger())
-    .use(require('koa-static')(__dirname + '/public'))
-    .use(views(path.join(__dirname, '/views'), {
+    .use(require('koa-static')(__dirname + '../public'))
+    .use(views(path.join(__dirname, '../views'), {
         options: {settings: {views: path.join(__dirname, 'views')}},
         map: {'ejs': 'ejs'},
         extension: 'ejs'
