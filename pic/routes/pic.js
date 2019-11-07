@@ -46,7 +46,7 @@ router.get("/stop",async (ctx)=>{
 
 router.get('/getPic',async (ctx)=>{
 
-    let urlStr = 'https://www.mzitu.com/192300/5';
+    let urlStr = 'https://www.mzitu.com/183413/2';
 
     let img = null;
     let i = 0;
