@@ -46,7 +46,9 @@ router.get("/stop",async (ctx)=>{
 
 router.get('/getPic',async (ctx)=>{
 
-    let urlStr = 'https://www.mzitu.com/183413/2';
+    let urlStr = 'https://www.mzitu.com/110053/53';
+    //从文件里面读取
+    urlStr = readFile('d://pic//path.txt');
 
     let img = null;
     let i = 0;
@@ -67,12 +69,11 @@ router.get('/getPic',async (ctx)=>{
 
         if(img){
             saveImg(img);
-
         }
 
-        let random = Math.random()*5*1000;
+        let random = Math.random()*4*1000;
         while(random < 1500){
-            random = Math.random()*5*1000;
+            random = Math.random()*4*1000;
         }
         console.log("本次休息"+random+" ms")
         await timeout(random);
@@ -97,7 +98,7 @@ function getData(url,pathHeader,cookie){
                 "sec-fetch-mode":"navigate",
                 "sec-fetch-site":"none",
                 "sec-fetch-user":"?1",
-                "cookie":cookie || "Hm_lvt_dbc355aef238b6c32b43eacbbf161c3c=1570365537; Hm_lpvt_dbc355aef238b6c32b43eacbbf161c3c=1572767578",
+                "cookie":cookie || "Hm_lvt_dbc355aef238b6c32b43eacbbf161c3c=1573222215; Hm_lpvt_dbc355aef238b6c32b43eacbbf161c3c=1573222224",
                 "upgrade-insecure-requests":"1",
                 "accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
                 "user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36"
@@ -144,10 +145,9 @@ function getData(url,pathHeader,cookie){
 
 function saveImg(img){
 
-    let rootPath = "/Volumes/ESD-USB/pic";
+    let rootPath = "d://pic//pic";
 
-
-    let folder = rootPath + "/"+img.title;
+    let folder = rootPath + "/"+img.title.replace(':',' ').replace("?",'');
 
     if(!fs.existsSync(folder)){
         //文件夹不存在，就创建文件夹
@@ -178,9 +178,10 @@ function saveImg(img){
                     return;
                 }
 
-
                 fs.writeFileSync(fullPath, sres.body, "binary");
 
+                //将图片保存完成之后把新的路劲存起来
+                writeFile("d://pic//path.txt",img.nextUrl);
 
             });
 
@@ -193,6 +194,17 @@ function saveImg(img){
 
 }
 
+
+function readFile(path){
+    let urlpath = fs.readFileSync(path,'utf-8');
+    return urlpath;
+
+}
+
+
+function writeFile(path,content){
+    fs.writeFileSync(path,content);
+}
 
 
 
